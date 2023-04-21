@@ -81,19 +81,100 @@ class BinarySearchTree {
             }
         }
     }
-    BFS() { // Breadth First Search
+    // Breadth First Search
+    BFS() { 
         // create a queue (ex. an array) 
+        let queue = [];
         // create another array/var that stores the values of nodes we have already visited
-        
+        let visited = [];
         // place the root node into the queue
+        let dequeuedNode = this.root;
+        queue.push(dequeuedNode);
+
         // loop while the queue has values in it
-            // dequeue node from the queue and push into its value into visited array
-                // if there is a .left prop on the node dequeued
-                    // add the left node into the queue
-                // if this is a .right prop on the node dequeued
-                    // add the right node into the queue
+        while (queue.length > 0) {
+            // dequeue node from the queue at the start and push its value into visited array
+            dequeuedNode = queue.shift();
+            console.log("Dequeuing: " + dequeuedNode.value);
+
+            visited.push(dequeuedNode.value);
+            
+            if (dequeuedNode.left) {
+                // if there is a .left prop on the node dequeued, add the left node into the queue
+                queue.push(dequeuedNode.left);
+            } 
+            if (dequeuedNode.right) {
+                // if there is a .right prop on the node dequeued, add the right node into the queue
+                queue.push(dequeuedNode.right); 
+            }
+            console.log("This is the current queue: " + queue);
+            console.log("This is the current visited array: " + visited);
+        }
         // end loop
-        // return the visited array
+        return visited; // return the visited array
+    }
+    // Pre-order Depth First Search
+    DFSPreOrder() {
+        // create a variable to store the values of the nodes visited
+        let visited = [];
+        // store the root of the BST in var currentNode
+        let startNode = this.root;
+
+        // helper funtion that accepts a node
+        function traverseHelper(node) {
+            // push value of the node into 'Visited Array'
+            visited.push(node.value);
+            // if node has .left, call the helper with the left prop
+            if (node.left) {
+                traverseHelper(node.left);
+            }
+            // if node has .right, call the helper with the right prop
+            if (node.right) {
+                traverseHelper(node.right);
+            } 
+        }
+        // invoke helper with currentNode
+        traverseHelper(startNode);
+
+        // return visited array
+        console.log("This is the final visited array: " + visited);
+        return visited;
+    }
+    // Post-Order DFS
+    DFSPostOrder() {
+        let visited = [];
+        let currentNode = this.root;
+
+        function traverseHelper(node) {
+            if (node.left) {
+                traverseHelper(node.left);
+            }
+            if (node.right) {
+                traverseHelper(node.right);
+            }
+            visited.push(node.value);
+        }
+        traverseHelper(currentNode);
+        console.log("This is DFSPostOrder Visited: " + visited);
+        return visited;
+    }
+    // In-order DFS
+    DFSInOrder() {
+        let visited = [];
+        let currentNode = this.root;
+
+        function traverseHelper(node) {
+            if (node.left) {
+                traverseHelper(node.left);
+            }
+            visited.push(node.value);
+            if (node.right) {
+                traverseHelper(node.right);
+            }
+        }
+        traverseHelper(currentNode);
+        console.log("This is DFSInOrder Visited: " + visited);
+        return visited;
     }
 }
 
@@ -102,4 +183,11 @@ myBST.root = new Node(10);
 myBST.root.right = new Node(15);
 myBST.root.left = new Node(7);
 myBST.root.left.right = new Node(9);
+myBST.root.left.left = new Node(6);
+
+
+myBST.BFS();
+myBST.DFSPreOrder();
+myBST.DFSPostOrder();
+myBST.DFSInOrder();
 
