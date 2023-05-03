@@ -10,7 +10,7 @@ class Node {
     }
 }
 
-class Stack {
+export default class Stack {
     constructor() {
         // similar to SLL's tail and head
         this.first  = null;
@@ -18,8 +18,7 @@ class Stack {
         this.size = 0;
     }
 
-    push(value) {
-        // accept a value
+    push(value) { // accept a value
         // create a new node(item) with that value
         let newNode = new Node(value);
         // if no nodes in the stack,
@@ -64,13 +63,13 @@ class Stack {
     }
 }
 
-var myStack = new Stack();
-myStack.push("FIRST");
-myStack.push("SECOND");
-myStack.push("THIRD");
+// var myStack = new Stack();
+// myStack.push("FIRST");
+// myStack.push("SECOND");
+// myStack.push("THIRD");
 
-myStack.pop();
-myStack.pop();
-myStack.pop();
+// myStack.pop();
+// myStack.pop();
+// myStack.pop();
 
 
